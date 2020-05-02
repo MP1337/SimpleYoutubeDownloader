@@ -12,21 +12,21 @@ def main():
     gui.theme("Material2")
 
     #GUI Widgets
-    header  = [gui.Text("Simple YouTube Downloader", font="Arial, 20", size=(33,1))]
-    browser = [gui.Text("Target DIR:", font=(12),size=(10,1)), gui.Input(OSPATH, enable_events=True, key="-Target-", font=(12), size=(50,1)), gui.FolderBrowse("Open", font=(12), size=(6,1))]
-    url     = [gui.Text("Video URL:",font=(12), size=(10,1)), gui.Input(key="-URL-", font=(12), size=(50,1), change_submits=True), gui.Button("Paste", enable_events=True, font=(12), size=(6,1))]
-    v_name  = [gui.Text("YouTube Video Name",text_color="green", size=(70,1), font=("Arial Bold", 12), key="-VNAME-")]
-    thumb   = [gui.Text(size=(23,1)), gui.Image("default_thumb.png",key="-THUMB-", size=(380,220))]
-    down    = [gui.Button("Download",font=(12),size=(69,1))]
-    proz    = [gui.Text("Download progress...", key="percent",size=(73,1)), gui.Text("Contact: p.mazela@icloud.com")]
-    prog    = [gui.ProgressBar(1, auto_size_text=True, key="progress", orientation="h", size=(65,25))]
+    header  = [gui.Text("Simple YouTube Downloader", font=("Arial", 16), size=(24,1))]
+    browser = [gui.Text("Target DIR:", font=("Arial", 11),size=(10,1)), gui.Input(OSPATH, enable_events=True, key="-Target-", font=("Arial", 11), size=(45,1)), gui.FolderBrowse("Open", font=("Arial", 11), size=(8,1))]
+    url     = [gui.Text("Video URL:",font=("Arial", 11), size=(10,1)), gui.Input(key="-URL-", font=("Arial", 11), size=(45,1), change_submits=True), gui.Button("Paste", enable_events=True, font=("Arial", 11), size=(8,1))]
+    v_name  = [gui.Text("YouTube Video Name",text_color="green", font=("Arial", 10),size=(23,9), key="-VNAME-"), gui.Image("default_thumb.png",key="-THUMB-", size=(259,150))]
+    proz    = [gui.Text("Progress...    ", key="percent",font=("Arial", 10)), gui.ProgressBar(1, key="progress", orientation="h", size=(43,25))]
+    line    = [gui.Text()]
+    down    = [gui.Button("Download",font=("Arial", 11), size=(66,2))]
     
     #making frame layout from widgets
-    framelayout     = [browser, url, v_name, thumb, down, proz, prog] 
+    framelayout     = [browser, url, v_name, line, 
+    down] 
     #generating frame with caption
-    frame   = [gui.Frame('Simple YouTube Downloader', framelayout, font='Any 12', title_color='DarkBlue')]
+    frame   = [gui.Frame('Simple YouTube Downloader', framelayout, font=("Arial", 11), title_color='DarkBlue')]
     #gui layout creation
-    layout  = [header, frame]
+    layout  = [header, frame, proz]
     
     #Generating window from layout
     mainwindow = gui.Window("Simple YouTube Downloader v1").Layout(layout)
@@ -38,7 +38,7 @@ def main():
         url = yt.thumbnail_url #url for thumbnail
         urllib.request.urlretrieve(url,'thumb.jpg') #download thumbnail as thumb.jpg
         image = Image.open('thumb.jpg') #convert jpg to png and resize image
-        image = image.resize([380,220])
+        image = image.resize([259,150])
         image.save('thumb.png')
         mainwindow["-THUMB-"].update("thumb.png") #update image
     
@@ -48,7 +48,7 @@ def main():
         if( percent%1 == 0):
             progress_bar = mainwindow.FindElement('progress')
             progress_bar.UpdateBar(percent, 100)
-            mainwindow["percent"].update("Download: " + str(percent) + "%")
+            mainwindow["percent"].update("Loading: " + str(percent) + "%")
    
     while True:
         event, values = mainwindow.read()

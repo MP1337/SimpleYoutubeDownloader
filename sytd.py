@@ -16,7 +16,7 @@ def main():
     browser = [gui.Text("Target DIR:", font=("Arial", 11),size=(10,1)), gui.Input(OSPATH, enable_events=True, key="-Target-", font=("Arial", 11), size=(45,1)), gui.FolderBrowse("Open", font=("Arial", 11), size=(8,1))]
     url     = [gui.Text("Video URL:",font=("Arial", 11), size=(10,1)), gui.Input(key="-URL-", font=("Arial", 11), size=(45,1), change_submits=True), gui.Button("Paste", enable_events=True, font=("Arial", 11), size=(8,1))]
     v_name  = [gui.Text("YouTube Video Name",text_color="green", font=("Arial", 10),size=(23,9), key="-VNAME-"), gui.Image("default_thumb.png",key="-THUMB-", size=(259,150))]
-    proz    = [gui.Text("Progress...    ", key="percent",font=("Arial", 10)), gui.ProgressBar(1, key="progress", orientation="h", size=(43,25))]
+    proz    = [gui.Text("Progress...   ", key="percent",font=("Courier New", 10)), gui.ProgressBar(1, key="progress", orientation="h", size=(40,25))]
     line    = [gui.Text()]
     down    = [gui.Button("Download",font=("Arial", 11), size=(66,2))]
     
@@ -48,7 +48,7 @@ def main():
         if( percent%1 == 0):
             progress_bar = mainwindow.FindElement('progress')
             progress_bar.UpdateBar(percent, 100)
-            mainwindow["percent"].update("Loading: " + str(percent) + "%")
+            mainwindow["percent"].update("Loading: " + str(percent) + "% ")
    
     while True:
         event, values = mainwindow.read()

@@ -64,7 +64,7 @@ def main():
 
         if event in "Download":
             ytdown = pytube.YouTube(values["-URL-"],on_progress_callback=progress_function)
-            ytdown.streams.get_highest_resolution().download(values["-Target-"])
+            ytdown.streams[1].download(values["-Target-"])
             gui.PopupAutoClose("Download", ytdown.title, "finished!")
 
         if event in "Paste":
